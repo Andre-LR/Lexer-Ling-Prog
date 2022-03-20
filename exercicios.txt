@@ -1,0 +1,29 @@
+Exercícios
+
+1. Capacidade de expressar idéias - Diminui a limitação dos algoritmos desenvolvidos ;
+    
+    Embasamento para escolher linguagem adequada - Utilizam a mais familiarizada ao invés da que possui recursos mais adaptados;
+    
+    Habilidade para aprender nova linguagem - Devido a constante evolução dos processos de softwares;
+    
+    Entendimento da importância da implementação - Habilita o desenvolvedor a utilizar  a linguagem de uma maneira mais inteligente;
+    
+    Melhor uso de linguagens já conhecidas - Estudar os conceitos das linguagens para aprender partes desconhecidas e não utilizadas;
+    
+    Avanço Geral da Computação - Linguagem melhores superariam as piores, caso programadores buscassem entender o conceito da linguagem.
+    
+2.  A principal desvantagem de uma gama alta de recursos em uma linguagem é legibilidade, visto que isso implicaria na complexidade do código e dificultaria na aprendizagem e manutenção.
+3.  Devido o operador ter mais de um significado, poderá confundir o desenvolvedor ou até mesmo o leitor do código
+4.  Structs podem retornar através de funções, já os vetores não.
+5.  Algol 68
+6.  Melhorar a confiabilidade do programa, pois irá interceptar erros em tempo de execução e tomar medidas corretivas.
+7.  Linguagens Imperativas
+8.  Polimorfismo - Encapsulamento - Herança
+9.  Um compilador 
+10. Liga um programa a programas de sistema, e também a outros programas de usuário 
+11.  É a velocidade de conexão entre a memória e o processador utilizada para medir a velocidade do computador
+12. Compilador: C, C++
+Interpretador Puro: JavaScript, Python
+Híbrido: C#, Java
+
+13 Prefixa: *+AB-CD Pós fixa: CD-*

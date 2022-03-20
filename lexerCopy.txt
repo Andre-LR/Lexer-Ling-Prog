@@ -1,0 +1,91 @@
+public class lexerCopy{
+
+    private static void identifyTokenPairs(char character, char nextCharacter){
+        if(character == '=' && nextCharacter == '='){
+            int token_id = 11;
+            System.out.printf("( %s%s ", character, nextCharacter + ",EQ_OP," + token_id +")\n"); 
+        }
+        else if(character == '=' && nextCharacter != '=')
+            System.out.printf("");
+    }
+
+    private static void identifyToken(char character){
+        if(character == ' ' || character == '\n' || character == '\t' || character == '\r'){
+            System.out.println("");
+        }
+        else if(character >= 'a' && character <= 'z' || character >= 'A' && character <= 'Z'){
+            //Chama Função Identify Operator
+        }
+        else if(character >= '0' && character <= '9'){
+            //Chama Função Identify Int Literal
+        }
+        else if(character == '+' || character == '-' || character == '*' || character == '/' || character == '%'){
+             tokenOperator(character);
+        }
+        else if(character == '(' || character == ')'){
+             tokenParen(character);
+        }
+        else{
+            System.out.println("Invalid");
+        }
+    }
+
+    private static boolean isInteger(char character){
+        if(character >= '0' && character <= '9'){
+            return true;
+        }
+        return false;
+    }
+
+    private static void tokenIntLiteral(char character){
+
+
+    }
+
+    private static void tokenParen(char character){
+        if(character == '('){
+            int token_id = 3;
+            System.out.printf("( %s ", character + ",LPAREN," + token_id +")\n");
+        }
+        else if(character == ')'){
+            int token_id = 4;
+            System.out.printf("( %s ", character + ",LPAREN," + token_id +")\n");
+        }
+    }
+
+    private static void tokenOperator(char character){
+        if(character == '+'){
+            int token_id = 5;
+            System.out.printf("( %s ", character + ",ADD_OP," + token_id +")\n");
+        }
+        else if(character == '-'){
+            int token_id = 6;
+            System.out.printf("( %s ", character + ",SUB_OP," + token_id +")\n");
+        }
+        else if(character == '*'){
+            int token_id = 7;
+            System.out.printf("( %s ", character + ",MUL_OP," + token_id +")\n");
+        }
+        else if(character == '/'){
+            int token_id = 8;
+            System.out.printf("( %s ", character + ",DIV_OP," + token_id +")\n");
+        }      
+        else if(character == '>'){
+            int token_id = 9;
+            System.out.printf("( %s ", character + ",GT_OP," + token_id +")\n");
+        }
+        else if(character == '<'){
+            int token_id = 10;
+            System.out.printf("( %s ", character + ",LT_OP," + token_id +")\n");
+        }  
+    }
+
+    private static char readCharacter(String word){
+        for(int i = 0; i < word.length(); i++)   
+            identifyToken(word.charAt(i));       
+        return '\0';
+    }
+    public static void main(String[] args) {
+        System.out.println(readCharacter("==="));    
+    }
+}

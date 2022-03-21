@@ -1,7 +1,11 @@
 public class lexer{
     public static String lexema_atual = "";
     public static int token_id = 0;
-    
+    public static String numero = "";
+    public static int index = 0;
+    public static String word = "a := (aux - 2) * 200 / 19";
+
+
     private static void identifyTokenPairs(char character, char nextCharacter){
         if(character == '=' && nextCharacter == '='){
             token_id = 11;
@@ -20,15 +24,34 @@ public class lexer{
     private static void identifyToken(char character){
         if(character == ' ' || character == '\n' || character == '\t' || character == '\r'){
             lexema_atual = "";
-            System.out.println("");
         }
         else if(character >= 'a' && character <= 'z' || character >= 'A' && character <= 'Z'){
-            //Chama Função Identify Operator
+             /**
+             * ARRUMAR:
+             * Está retornando o lexema de cada letra da palavra
+             * Se for num com mais de 1 letra, deve retornar um lexema apenas, e não vários
+             */
+            tokenIdent(character);
         }
         else if(character >= '0' && character <= '9'){
-            //Chama Função Identify Int Literal
+            while(index < word.length()){
+                if(!Character.isDigit(word.charAt(index))){
+                    tokenInteger(numero);
+                    index--;
+                    numero = "";
+                    break;
+                }else{
+                    numero += String.valueOf(word.charAt(index));
+                    index++;
+                }
+            }
+
+            if(index == word.length()){
+                tokenInteger(numero);
+            }
+            
         }
-        else if(character == '+' || character == '-' || character == '*' || character == '/' || character == '%'){
+        else if(character == '+' || character == '-' || character == '*' || character == '/' || character == '%' || character == '<' || character == '>'){
              tokenOperator(character);
         }
         else if(character == '(' || character == ')'){
@@ -39,15 +62,17 @@ public class lexer{
         }
     }
 
-    private static void tokenInteger(char character){
-        switch (character){
-            case 0:
-                
-                break;
+    private static void tokenIdent(char character){
+        token_id = 1;
+        lexema_atual = "IDENT";
+        System.out.printf("( %s, %s, %s )\n", character, lexema_atual, token_id);
+    }
 
-            default:
-                System.out.println("Invalid");
-        }
+    private static void tokenInteger(String num){
+        token_id = 2;
+        lexema_atual = "INT_LIT";
+
+        System.out.printf("( %s, %s, %s )\n", num, lexema_atual, token_id);
     }
 
     private static void tokenParen(char character){
@@ -100,19 +125,26 @@ public class lexer{
         if(word.length()==1){
             identifyToken(word.charAt(0));       
         }else{
-            for(int i = 0; i < word.length(); i++){   
+            while( index < word.length() ){   
                 if(!lexema_atual.equals("EQ_OP") && !lexema_atual.equals("ASSIGN_OP")){
-                    if(word.charAt(i) == '=' || word.charAt(i) == ':'){
-                        identifyTokenPairs(word.charAt(i), word.charAt(i+1));
+                    if(word.charAt(index) == '=' || word.charAt(index) == ':'){
+                        identifyTokenPairs(word.charAt(index), word.charAt(index+1));
                     }else{
-                        identifyToken(word.charAt(i));
+                        identifyToken(word.charAt(index));
                     } 
+                }else{
+                    /**
+                     * Reseta o lexema atual para não repetir casos EQ_OP E ASSIGN_OP
+                     */
+                    lexema_atual = "";
                 }
+
+                index ++;
             } 
         }
         return '\0';
     } 
     public static void main(String[] args) {
-        System.out.println(readCharacter("Andre:=+"));    
+        System.out.println(readCharacter(word));    
     }
 }

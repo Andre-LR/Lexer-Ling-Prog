@@ -1,25 +1,45 @@
-public class lexerCopy{
-
+public class lexer{
+    public static String lexema_atual = "";
+    public static int token_id = 0;
+    public static int count = 0;
+    
     private static void identifyTokenPairs(char character, char nextCharacter){
         if(character == '=' && nextCharacter == '='){
-            int token_id = 11;
-            System.out.printf("( %s%s ", character, nextCharacter + ",EQ_OP," + token_id +")\n"); 
-        }
-        else if(character == '=' && nextCharacter != '=')
+            token_id = 11;
+            lexema_atual = "EQ_OP";
+            System.out.printf("( %s%s, %s, %s )\n", character, nextCharacter, lexema_atual, token_id); 
+        }else if(character == ':' && nextCharacter == '='){
+            token_id = 12;
+            lexema_atual = "ASSIGN_OP";
+            System.out.printf("( %s%s, %s, %s )\n", character, nextCharacter, lexema_atual, token_id);
+        }else if(character == '=' && nextCharacter != '='){
             System.out.printf("");
+        }
     }
+    
 
     private static void identifyToken(char character){
         if(character == ' ' || character == '\n' || character == '\t' || character == '\r'){
+            lexema_atual = "";
             System.out.println("");
         }
         else if(character >= 'a' && character <= 'z' || character >= 'A' && character <= 'Z'){
-            //Chama Função Identify Operator
+             /**
+             * ARRUMAR:
+             * Está retornando o lexema de cada letra da palavra
+             * Se for num com mais de 1 letra, deve retornar um lexema apenas, e não vários
+             */
+            tokenIdent(character);
         }
         else if(character >= '0' && character <= '9'){
-            //Chama Função Identify Int Literal
+            /**
+             * ARRUMAR:
+             * Está retornando o lexema de cada algarismo do número
+             * Se for num com mais de 1 algarismo, deve retornar um lexema apenas, e não vários
+             */
+            tokenInteger(character);
         }
-        else if(character == '+' || character == '-' || character == '*' || character == '/' || character == '%'){
+        else if(character == '+' || character == '-' || character == '*' || character == '/' || character == '%' || character == '<' || character == '>'){
              tokenOperator(character);
         }
         else if(character == '(' || character == ')'){
@@ -30,62 +50,87 @@ public class lexerCopy{
         }
     }
 
-    private static boolean isInteger(char character){
-        if(character >= '0' && character <= '9'){
-            return true;
-        }
-        return false;
+    private static void tokenIdent(char character){
+        token_id = 1;
+        lexema_atual = "IDENT";
+        System.out.printf("( %s, %s, %s )\n", character, lexema_atual, token_id);
     }
 
-    private static void tokenIntLiteral(char character){
-
-
+    private static void tokenInteger(char character){
+        token_id = 2;
+        lexema_atual = "INT_LIT";
+        
+        System.out.printf("( %s, %s, %s )\n", character, lexema_atual, token_id);
     }
 
     private static void tokenParen(char character){
         if(character == '('){
-            int token_id = 3;
-            System.out.printf("( %s ", character + ",LPAREN," + token_id +")\n");
+            token_id = 3;
+            lexema_atual = "LPAREN";
+            System.out.printf("( %s, %s, %s )\n", character, lexema_atual, token_id);
         }
         else if(character == ')'){
-            int token_id = 4;
-            System.out.printf("( %s ", character + ",LPAREN," + token_id +")\n");
+            token_id = 4;
+            lexema_atual = "LPAREN";
+            System.out.printf("( %s, %s, %s )\n", character, lexema_atual, token_id);
         }
     }
 
     private static void tokenOperator(char character){
         if(character == '+'){
-            int token_id = 5;
-            System.out.printf("( %s ", character + ",ADD_OP," + token_id +")\n");
+            token_id = 5;
+            lexema_atual = "ADD_OP";
+            System.out.printf("( %s, %s, %s )\n", character, lexema_atual, token_id);
         }
         else if(character == '-'){
-            int token_id = 6;
-            System.out.printf("( %s ", character + ",SUB_OP," + token_id +")\n");
+            token_id = 6;
+            lexema_atual = "SUB_OP";
+            System.out.printf("( %s, %s, %s )\n", character, lexema_atual, token_id);
         }
         else if(character == '*'){
-            int token_id = 7;
-            System.out.printf("( %s ", character + ",MUL_OP," + token_id +")\n");
+            token_id = 7;
+            lexema_atual = "MUL_OP";
+            System.out.printf("( %s, %s, %s )\n", character, lexema_atual, token_id);
         }
         else if(character == '/'){
-            int token_id = 8;
-            System.out.printf("( %s ", character + ",DIV_OP," + token_id +")\n");
+            token_id = 8;
+            lexema_atual = "DIV_OP";
+            System.out.printf("( %s, %s, %s )\n", character, lexema_atual, token_id);
         }      
         else if(character == '>'){
-            int token_id = 9;
-            System.out.printf("( %s ", character + ",GT_OP," + token_id +")\n");
+            token_id = 9;
+            lexema_atual = "GT_OP";
+            System.out.printf("( %s, %s, %s )\n", character, lexema_atual, token_id);
         }
         else if(character == '<'){
-            int token_id = 10;
-            System.out.printf("( %s ", character + ",LT_OP," + token_id +")\n");
+            token_id = 10;
+            lexema_atual = "LT_OP";
+            System.out.printf("( %s, %s, %s )\n", character, lexema_atual, token_id);
         }  
     }
 
     private static char readCharacter(String word){
-        for(int i = 0; i < word.length(); i++)   
-            identifyToken(word.charAt(i));       
+        if(word.length()==1){
+            identifyToken(word.charAt(0));       
+        }else{
+            for(int i = 0; i < word.length(); i++){   
+                if(!lexema_atual.equals("EQ_OP") && !lexema_atual.equals("ASSIGN_OP")){
+                    if(word.charAt(i) == '=' || word.charAt(i) == ':'){
+                        identifyTokenPairs(word.charAt(i), word.charAt(i+1));
+                    }else{
+                        identifyToken(word.charAt(i));
+                    } 
+                }else{
+                    /**
+                     * Reseta o lexema atual para não repetir casos EQ_OP E ASSIGN_OP
+                     */
+                    lexema_atual = "";
+                }
+            } 
+        }
         return '\0';
-    }
+    } 
     public static void main(String[] args) {
-        System.out.println(readCharacter("==="));    
+        System.out.println(readCharacter("==<a"));    
     }
 }

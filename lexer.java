@@ -4,8 +4,9 @@ public class lexer{
     public static String numero = "";
     public static String s = "";
     public static int index = 0;
-    public static String word = "a := (aux-2) * 200 / 19";
-
+    public static String word = "a1 := (aux-2) * 200 / 19";
+//a1 
+//aux-2
     private static void identifyTokenPairs(char character, char nextCharacter){
         if(character == '=' && nextCharacter == '='){
             token_id = 11;
@@ -27,7 +28,7 @@ public class lexer{
         }
         else if(character >= 'a' && character <= 'z' || character >= 'A' && character <= 'Z'){
             while(index < word.length()){
-                if((word.charAt(index) >= 'a' && word.charAt(index) <= 'z') || (word.charAt(index) >= 'A' && word.charAt(index) <= 'Z')){
+                if((word.charAt(index) >= 'a' && word.charAt(index) <= 'z') || (word.charAt(index) >= 'A' && word.charAt(index) <= 'Z') || (word.charAt(index) >= 0)){
                     s += String.valueOf(word.charAt(index));
                     index++;
                 }else{
@@ -43,15 +44,9 @@ public class lexer{
             }
         }
         else if(character >= '0' && character <= '9'){
-            /*
-            Corrigir a1
-
-            */                               
-            if(word.charAt(index) == '=' || word.charAt(index) == ':'){
-                identifyTokenPairs(word.charAt(index), word.charAt(index+1));
-
-
-
+            if(lexema_atual.equals("IDENT")){
+                
+            }
             while(index < word.length()){
                 if(!Character.isDigit(word.charAt(index))){
                     tokenInteger(numero);
@@ -174,7 +169,6 @@ public class lexer{
         }
         return '\0';
     } 
-
     public static void main(String[] args) {
         
         word = word.trim();

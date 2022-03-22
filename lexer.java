@@ -4,7 +4,7 @@ public class lexer{
     public static String numero = "";
     public static String s = "";
     public static int index = 0;
-    public static String word = "a := (aux - 2) * 200 / 19";
+    public static String word = "a := (aux-2) * 200 / 19";
 
     private static void identifyTokenPairs(char character, char nextCharacter){
         if(character == '=' && nextCharacter == '='){
@@ -43,6 +43,15 @@ public class lexer{
             }
         }
         else if(character >= '0' && character <= '9'){
+            /*
+            Corrigir a1
+
+            */                               
+            if(word.charAt(index) == '=' || word.charAt(index) == ':'){
+                identifyTokenPairs(word.charAt(index), word.charAt(index+1));
+
+
+
             while(index < word.length()){
                 if(!Character.isDigit(word.charAt(index))){
                     tokenInteger(numero);
@@ -165,11 +174,9 @@ public class lexer{
         }
         return '\0';
     } 
+
     public static void main(String[] args) {
-        /**
-         * FAZER
-         * Considere que os lexemas relativos aos números terão tamanho menor 100 dígitos. A mesma restrição de tamanho se aplica aos nomes de variáveis.
-         */
+        
         word = word.trim();
         System.out.println(word);
         if(word.charAt(0) >= '0' && word.charAt(0) <= '9' ){
@@ -177,8 +184,8 @@ public class lexer{
             System.exit(0);
         }
 
-        if(word.contains(",") || word.contains(".") || word.contains("-0") || word.contains("-1") || word.contains("-2") || word.contains("-3") || word.contains("-4") || word.contains("-5") || word.contains("-6") || word.contains("-7") || word.contains("-8") || word.contains("-9")){
-            System.out.println("Entrada invalida...");
+        if(word.contains(",") || word.contains(".") || word.contains(" -0") || word.contains(" -1") || word.contains(" -2") || word.contains(" -3") || word.contains(" -4") || word.contains(" -5") || word.contains(" -6") || word.contains(" -7") || word.contains(" -8") || word.contains(" -9")){
+            System.out.println("Entrada invalida...");//PoweredByAndre
             System.exit(0);
         }
 

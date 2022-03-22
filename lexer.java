@@ -72,16 +72,28 @@ public class lexer{
     }
 
     private static void tokenIdent(String s){
-        token_id = 1;
-        lexema_atual = "IDENT";
-        System.out.printf("( %s, %s, %s )\n", s, lexema_atual, token_id);
-    }
+        if(s.length() < 100){
+            token_id = 1;
+            lexema_atual = "IDENT";
+            System.out.printf("( %s, %s, %s )\n", s, lexema_atual, token_id);
+            }else{
+                System.out.println("Entrada invalida, acima de 100 caracteres." + "\n" +  (s));
+                System.exit(0);
+            }
+            
+        }
 
     private static void tokenInteger(String num){
-        token_id = 2;
-        lexema_atual = "INT_LIT";
-
-        System.out.printf("( %s, %s, %s )\n", num, lexema_atual, token_id);
+        if(num.length() < 10){
+            token_id = 2;
+            lexema_atual = "INT_LIT";
+    
+            System.out.printf("( %s, %s, %s )\n", num, lexema_atual, token_id);
+        }else{
+            System.out.println("Entrada inavalida, acima de 100 caracteres" + "\n" + (num));
+            System.exit(0);
+        }
+       
     }
 
     private static void tokenParen(char character){

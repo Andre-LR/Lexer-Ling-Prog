@@ -4,9 +4,8 @@ public class lexer{
     public static String numero = "";
     public static String s = "";
     public static int index = 0;
-    public static String word = "a1 := (aux-2) * 200 / 19";
-//a1 
-//aux-2
+    public static String word = "a := (aux - 2) * 200 / 19";
+
     private static void identifyTokenPairs(char character, char nextCharacter){
         if(character == '=' && nextCharacter == '='){
             token_id = 11;
@@ -28,7 +27,7 @@ public class lexer{
         }
         else if(character >= 'a' && character <= 'z' || character >= 'A' && character <= 'Z'){
             while(index < word.length()){
-                if((word.charAt(index) >= 'a' && word.charAt(index) <= 'z') || (word.charAt(index) >= 'A' && word.charAt(index) <= 'Z') || (word.charAt(index) >= 0)){
+                if((word.charAt(index) >= 'a' && word.charAt(index) <= 'z') || (word.charAt(index) >= 'A' && word.charAt(index) <= 'Z' || word.charAt(index) >= '0' && word.charAt(index) <= '9')){    
                     s += String.valueOf(word.charAt(index));
                     index++;
                 }else{
@@ -179,7 +178,7 @@ public class lexer{
         }
 
         if(word.contains(",") || word.contains(".") || word.contains(" -0") || word.contains(" -1") || word.contains(" -2") || word.contains(" -3") || word.contains(" -4") || word.contains(" -5") || word.contains(" -6") || word.contains(" -7") || word.contains(" -8") || word.contains(" -9")){
-            System.out.println("Entrada invalida...");//PoweredByAndre
+            System.out.println("Entrada invalida...");
             System.exit(0);
         }
 

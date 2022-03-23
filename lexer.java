@@ -1,3 +1,11 @@
+/*
+    Autores: 
+            - Andre Luiz Rodrigues
+            - Bruno Ramos
+            - Gustavo Santos
+*/
+
+
 public class lexer{
     public static String lexema_atual = "";
     public static int token_id = 0;
